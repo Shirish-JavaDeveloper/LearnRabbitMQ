@@ -97,9 +97,13 @@ public class RabbitMQAdmin {
         channel.queueBind(queue,exchange,routingKey );
     }
 
-
     public void createAndBindExchangeToQueue(String exchange, String queueName, String exchangeType, String routingKey) throws IOException {
         createAndBind(exchange, queueName, exchangeType, routingKey);
+    }
+
+
+    public void deleteExchange(String exchangeName) throws IOException {
+        channel.exchangeDelete(exchangeName);
     }
 }
 

@@ -136,4 +136,10 @@ public class ProducerConsumerTest {
         assertEquals(SAMPLE_MESSAGE_TEXT_2, message);
     }
 
+
+    @Test
+    public void deleteExchange() throws IOException {
+        admin.createAndBindExchangeToQueue("ERROR","ErrorQueue","direct","error");
+        admin.deleteExchange("ERROR");
+    }
 }
