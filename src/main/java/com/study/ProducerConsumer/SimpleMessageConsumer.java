@@ -14,8 +14,8 @@ public class SimpleMessageConsumer extends DefaultConsumer implements BasicConsu
     }
 
     @Override
-    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-        latestMessage = new String(body, "UTF-8");
+    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] message) throws IOException {
+        latestMessage = new String(message, "UTF-8");
         System.out.println(" [x] Received '" + latestMessage + "'");
     }
 

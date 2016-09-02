@@ -43,6 +43,10 @@ public class RabbitMQAdmin {
         channel.basicPublish(exchange,DEFAULT_ROUTING_KEY,null,message);
         return true;
     }
+    public boolean sendMessageTo(String exchange,String routingKey, byte[] message) throws IOException {
+        channel.basicPublish(exchange,routingKey,null,message);
+        return true;
+    }
 
     public Channel createTempQueue(String queueName) throws IOException {
         return createQueue(queueName,false,true);

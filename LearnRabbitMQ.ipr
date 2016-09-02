@@ -182,6 +182,9 @@
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="annotationTypeSettings">
       <map>
