@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class RabbitMQAdmin {
     public static final String DIRECT_EXCHANGE_TYPE = "direct";
@@ -30,6 +31,11 @@ public class RabbitMQAdmin {
 
     public Channel createQueue(String queueName) throws IOException {
         channel.queueDeclare(queueName, true, false, false, null);
+        return channel;
+    }
+
+    public Channel createQueue(String queueName, Map<String,Object> props) throws IOException {
+        channel.queueDeclare(queueName, true, false, false, props);
         return channel;
     }
 

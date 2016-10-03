@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
@@ -161,21 +163,23 @@ public class RabbitMQTest {
 
     @Test
     public void NackMethodWithRequeue() throws IOException, InterruptedException {
-        messageNackFunctionality(true);
+        String queueName="NACK_QUEUE";
+        messageNackFunctionality(true, queueName);
     }
 
-    private void messageNackFunctionality(boolean requeue) throws IOException, InterruptedException {
+    private void messageNackFunctionality(boolean requeue, String queueName) throws IOException, InterruptedException {
         for(int i =0;i<10;i++) {
             String messageText = SAMPLE_MESSAGE_TEXT ;
-            admin.sendMessage("NACK_QUEUE", messageText.getBytes());
-            String consumedMessage = admin.consumeMessageWithNackConsumer("NACK_QUEUE", requeue);
+            admin.sendMessage(queueName, messageText.getBytes());
+            String consumedMessage = admin.consumeMessageWithNackConsumer(queueName, requeue);
             assertEquals(messageText, consumedMessage);
         }
     }
 
     @Test
     public void NackMethodWithRequeueDisabled() throws IOException, InterruptedException {
-        messageNackFunctionality(false);
+        String queueName="NACK_QUEUE";
+        messageNackFunctionality(false, queueName);
     }
 
     @Test
@@ -197,4 +201,18 @@ public class RabbitMQTest {
         admin.createAndBindExchangeToQueue("ERROR","ErrorQueue","direct","error");
         admin.deleteExchange("ERROR");
     }
+
+
+    @Test
+    public void createDeadLetterExchange() throws IOException, InterruptedException {
+        admin.createAndBindExchangeToQueue("Dead-Letter-Exchange","Dead-Letter-Queue","direct","dead-message");
+         Map<String, Object> args = new HashMap<String, Object>();
+        args.put("x-dead-letter-exchange", "Dead-Letter-Exchange");
+        String queueName ="TEST_DEAD_LETTER_QUEUE";
+        admin.createQueue(queueName,args);
+
+        messageNackFunctionality(false, queueName);
+
+    }
+
 }
