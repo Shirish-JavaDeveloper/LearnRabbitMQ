@@ -2,13 +2,26 @@ package com.study.ProducerConsumer;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import org.apache.activemq.artemis.api.core.BroadcastEndpointFactory;
+import org.apache.activemq.artemis.api.core.DiscoveryGroupConfiguration;
+import org.apache.activemq.artemis.api.core.client.ActiveMQClient;
+import org.apache.activemq.artemis.api.core.client.ClientSession;
+import org.apache.activemq.artemis.api.core.client.ClientSessionFactory;
+import org.apache.activemq.artemis.api.core.client.ServerLocator;
+import org.apache.activemq.artemis.api.jms.ActiveMQJMSClient;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.hornetq.api.core.UDPBroadcastGroupConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.Queue;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
@@ -214,5 +227,13 @@ public class RabbitMQTest {
         messageNackFunctionality(false, queueName);
 
     }
+
+    @Test
+    public void main() throws IOException {
+
+         admin.sendMessageTo("TEST_FANOUT_EXCHANGE","SAMPLE TEXT ".getBytes());
+
+    }
+
 
 }

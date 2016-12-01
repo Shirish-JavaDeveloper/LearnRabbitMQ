@@ -78,6 +78,9 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javax.jms-api-2.0" level="project" />
+    <orderEntry type="library" name="jboss-remote-naming-2.0.4.Final" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
